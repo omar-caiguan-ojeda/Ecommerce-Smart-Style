@@ -12,3 +12,157 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                  String   @id @default(uuid())
+  firstName           String
+  lastName            String
+  email               String   @unique
+  password            String
+  phoneNumber         String?
+  profilePicture      String?
+  dateOfBirth         DateTime?
+  role                Role      @default(CLIENT)
+  isActive            Boolean   @default(true)
+  resetPasswordToken  String?
+  resetPasswordExpires DateTime?
+  twoFactorEnabled    Boolean   @default(false)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  lastLogin           DateTime?
+
+  orders    Order[]
+  addresses Address[]
+  cart      Cart?
+  reviews   Review[]
+}
+
+enum Role {
+  CLIENT
+  EMPLOYEE
+  ADMIN
+}
+
+model Address {
+  id         String @id @default(uuid())
+  userId     String
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  street     String
+  city       String
+  state      String
+  country    String
+  postalCode String
+  type       AddressType @default(SHIPPING)
+  isDefault  Boolean @default(false)
+  order       Order?   @relation(name: "ShippingAddress")
+}
+
+enum AddressType {
+  SHIPPING
+  BILLING
+}
+
+model Cart {
+  id        String  @id @default(uuid())
+  userId    String  @unique
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(uuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       Decimal
+  imageUrl    String
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  reviews     Review[]
+  orderItems  OrderItem[]
+  cartItems   CartItem[]
+}
+
+model Category {
+  id       Int      @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Order {
+  id                String        @id @default(uuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status            OrderStatus   @default(PENDING)
+  orderItems        OrderItem[]
+  shippingAddress   Address?      @relation(fields: [shippingAddressId], references: [id], name: "ShippingAddress")
+  shippingAddressId String?       @unique
+  shipment          Shipment?
+  transaction       Transaction?
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int
+  price     Decimal
+}
+
+model Review {
+  id        String  @id @default(uuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  comment   String
+  rating    Int
+}
+
+model Shipment {
+  id              String      @id @default(uuid())
+  orderId         String      @unique
+  order           Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  carrier         String
+  trackingNumber  String? @unique
+  status          ShipmentStatus @default(PENDING)
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+}
+
+enum ShipmentStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  RETURNED
+}
+
+model Transaction {
+  id          String  @id @default(uuid())
+  orderId     String  @unique
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status      TransactionStatus @default(PENDING)
+  paymentMethod String
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
