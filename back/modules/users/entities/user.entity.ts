@@ -1,6 +1,7 @@
 import { Address } from "modules/address/entities/address.entity";
 import { Cart } from "modules/cart/entities/cart.entity";
 import { Order } from "modules/order/entities/order.entity";
+import { Review } from "modules/review/entities/review.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -59,9 +60,10 @@ export class User {
   @OneToMany(() => Address, (address) => address.user)
   addresses: Address[];
 
-
-  
   @OneToOne(() => Cart, (cart) => cart.user)
   cart: Cart;
+
+  @OneToMany(() => Review, (review) => review.user, { cascade: true })
+  reviews: Review[];
 }
 
