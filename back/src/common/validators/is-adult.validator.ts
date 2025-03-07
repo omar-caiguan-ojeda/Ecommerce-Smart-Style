@@ -21,7 +21,7 @@ export function IsAdult(validationOptions?: ValidationOptions) {
           return age >= 18;
         },
         defaultMessage(): string {
-          return 'Debes ser mayor de 18 años para registrarte.';
+          return 'You must be over 18 years old to register.';
         },
       },
     });

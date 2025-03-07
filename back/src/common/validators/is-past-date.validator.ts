@@ -14,7 +14,7 @@ export function IsPastDate(validationOptions?: ValidationOptions) {
           return date < today;
         },
         defaultMessage(): string {
-          return 'La fecha debe estar en el pasado.';
+          return 'The date must be in the past.';
         },
       },
     });

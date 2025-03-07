@@ -24,7 +24,7 @@ model User {
   dateOfBirth         DateTime?
   role                Role      @default(CLIENT)
   isActive            Boolean   @default(true)
-  resetPasswordToken  String?
+  resetPasswordToken  String?   @unique
   resetPasswordExpires DateTime?
   twoFactorEnabled    Boolean   @default(false)
   createdAt           DateTime  @default(now())

@@ -1,6 +1,7 @@
-import { IsEmail, IsOptional, IsString, IsBoolean, IsDateString, IsNotEmpty, Length, Matches } from 'class-validator';
+import { IsEmail, IsOptional, IsString, IsBoolean, IsDateString, IsNotEmpty, Length, Matches, IsUrl, IsUUID } from 'class-validator';
 import { IsAdult } from 'src/common/validators/is-adult.validator';
 import { IsPastDate } from 'src/common/validators/is-past-date.validator';
+import { Match } from 'src/common/validators/match.validator';
 
 export class CreateUserDto {
   
@@ -26,17 +27,23 @@ export class CreateUserDto {
     )
     password: string;
 
-    @IsNotEmpty()
-    @IsString()
+    @IsNotEmpty({ message: 'Re-enter your password.' })
+    @IsString({ message: 'The confirm password field must be of type string.' })
+    @Match('password', { message: 'The passwords do not match.' }) // 🔥 Validación personalizada
     confirmPassword: string
 
 
     @IsNotEmpty({ message: 'Enter your phone number.' })
     @IsString({ message: 'The phone number field must be of type string.' })
+    @Matches(
+        /^\+?[1-9]\d{1,14}$/,
+        { message: 'Enter a valid phone number (E.164 format, e.g., +1234567890).',
+    })
     phoneNumber?: string;
 
     @IsOptional()
     @IsString({ message: 'The profile picture field must be of type string.' })
+    @IsUrl({}, { message: 'The profile picture field must be a valid URL.' })
     profilePicture?: string;
 
     @IsOptional()
@@ -46,22 +53,22 @@ export class CreateUserDto {
     dateOfBirth?: string;
 
     @IsOptional()
-    @IsString()
+    @IsString({ message: 'The role field must be of type string (CLIENT | EMPLOYEE | ADMIN).' })
     role?: 'CLIENT' | 'EMPLOYEE' | 'ADMIN';
 
-  @IsOptional()
-  @IsBoolean()
-  isActive?: boolean;
+    @IsOptional()
+    @IsBoolean({ message: 'The isActive field must be of boolean type (true or false)' })
+    isActive?: boolean;
 
-  @IsOptional()
-  @IsString()
-  resetPasswordToken?: string;
+    @IsOptional()
+    @IsUUID('4', { message: 'The resetPasswordToken must be a valid UUID.' })
+    resetPasswordToken?: string;
 
-  @IsOptional()
-  @IsDateString()
-  resetPasswordExpires?: string;
+    @IsOptional()
+    @IsDateString({}, { message: 'The resetPasswordExpires must be a valid date string.' })
+    resetPasswordExpires?: string;
 
-  @IsOptional()
-  @IsBoolean()
-  twoFactorEnabled?: boolean;
+    @IsOptional()
+    @IsBoolean({ message: 'The twoFactorEnabled field must be of boolean type (true or false)' })
+    twoFactorEnabled?: boolean;
 }
