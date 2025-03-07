@@ -60,28 +60,28 @@ export class CreateUserDto {
     @IsAdult({ message: 'You must be over 18 years old to register.' })
     dateOfBirth?: string;
 
-    @ApiPropertyOptional({ example: 'CLIENT', description: 'User role (CLIENT | EMPLOYEE | ADMIN)', enum: ['CLIENT', 'EMPLOYEE', 'ADMIN'] })
-    @IsOptional()
-    @IsString({ message: 'The role field must be of type string (CLIENT | EMPLOYEE | ADMIN).' })
-    role?: 'CLIENT' | 'EMPLOYEE' | 'ADMIN';
+    // @ApiPropertyOptional({ example: 'CLIENT', description: 'User role (CLIENT | EMPLOYEE | ADMIN)', enum: ['CLIENT', 'EMPLOYEE', 'ADMIN'] })
+    // @IsOptional()
+    // @IsString({ message: 'The role field must be of type string (CLIENT | EMPLOYEE | ADMIN).' })
+    // role?: 'CLIENT' | 'EMPLOYEE' | 'ADMIN';
 
-    @ApiPropertyOptional({ example: true, description: 'Whether the user is active or not' })
-    @IsOptional()
-    @IsBoolean({ message: 'The isActive field must be of boolean type (true or false)' })
-    isActive?: boolean;
+    // @ApiPropertyOptional({ example: true, description: 'Whether the user is active or not' })
+    // @IsOptional()
+    // @IsBoolean({ message: 'The isActive field must be of boolean type (true or false)' })
+    // isActive?: boolean;
 
-    @ApiPropertyOptional({ example: '550e8400-e29b-41d4-a716-446655440000', description: 'Password reset token' })
-    @IsOptional()
-    @IsUUID('4', { message: 'The resetPasswordToken must be a valid UUID.' })
-    resetPasswordToken?: string;
+    // @ApiPropertyOptional({ example: '550e8400-e29b-41d4-a716-446655440000', description: 'Password reset token' })
+    // @IsOptional()
+    // @IsUUID('4', { message: 'The resetPasswordToken must be a valid UUID.' })
+    // resetPasswordToken?: string;
 
-    @ApiPropertyOptional({ example: '2025-12-31T23:59:59Z', description: 'Expiration date for password reset token' })
-    @IsOptional()
-    @IsDateString({}, { message: 'The resetPasswordExpires must be a valid date string.' })
-    resetPasswordExpires?: string;
+    // @ApiPropertyOptional({ example: '2025-12-31T23:59:59Z', description: 'Expiration date for password reset token' })
+    // @IsOptional()
+    // @IsDateString({}, { message: 'The resetPasswordExpires must be a valid date string.' })
+    // resetPasswordExpires?: string;
 
-    @ApiPropertyOptional({ example: false, description: 'Two-factor authentication enabled' })
-    @IsOptional()
-    @IsBoolean({ message: 'The twoFactorEnabled field must be of boolean type (true or false)' })
-    twoFactorEnabled?: boolean;
+    // @ApiPropertyOptional({ example: false, description: 'Two-factor authentication enabled' })
+    // @IsOptional()
+    // @IsBoolean({ message: 'The twoFactorEnabled field must be of boolean type (true or false)' })
+    // twoFactorEnabled?: boolean;
 }
