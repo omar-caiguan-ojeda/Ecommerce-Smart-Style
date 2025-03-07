@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, IsBoolean, IsDateString, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsOptional, IsString, IsBoolean, IsDateString, IsNotEmpty, Length, Matches } from 'class-validator';
 import { IsAdult } from 'src/common/validators/is-adult.validator';
 import { IsPastDate } from 'src/common/validators/is-past-date.validator';
 
@@ -6,10 +6,12 @@ export class CreateUserDto {
   
     @IsNotEmpty({ message: 'Enter your firstname.' })
     @IsString({ message: 'The firstname field must be of type string.' })
+    @Length(3, 50, { message: 'The firstname field must be 3 to 50 characters long.' })
     firstName: string;
 
     @IsNotEmpty({ message: 'Enter your lastname.' })
     @IsString({ message: 'The lastname field must be of type string.' })
+    @Length(3, 50, { message: 'The lastname field must be 3 to 50 characters long.' })
     lastName: string;
 
     @IsNotEmpty({ message: 'Enter your email.' })
@@ -18,7 +20,16 @@ export class CreateUserDto {
 
     @IsNotEmpty({ message: 'Enter your password.' })
     @IsString({ message: 'The password field must be of type string.' })
+    @Matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/,
+        { message: 'The password entered must include at least one uppercase letter, one lowercase letter, one number and one special character (!@#$%^&*) and be between 8 and 15 characters long.' }
+    )
     password: string;
+
+    @IsNotEmpty()
+    @IsString()
+    confirmPassword: string
+
 
     @IsNotEmpty({ message: 'Enter your phone number.' })
     @IsString({ message: 'The phone number field must be of type string.' })
