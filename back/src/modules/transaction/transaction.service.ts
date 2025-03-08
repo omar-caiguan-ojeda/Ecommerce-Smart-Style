@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class TransactionService {
+  constructor(private prisma: PrismaClient) {}
+
   create(createTransactionDto: CreateTransactionDto) {
     return 'This action adds a new transaction';
   }

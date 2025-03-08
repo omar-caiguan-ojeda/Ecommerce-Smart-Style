@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCartItemDto } from './dto/create-cart-item.dto';
 import { UpdateCartItemDto } from './dto/update-cart-item.dto';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class CartItemService {
+  constructor(private prisma: PrismaClient) {}
+
   create(createCartItemDto: CreateCartItemDto) {
     return 'This action adds a new cartItem';
   }

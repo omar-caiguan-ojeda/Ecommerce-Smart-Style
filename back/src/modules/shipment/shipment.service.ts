@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateShipmentDto } from './dto/create-shipment.dto';
 import { UpdateShipmentDto } from './dto/update-shipment.dto';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class ShipmentService {
+  constructor(private prisma: PrismaClient) {}
+
   create(createShipmentDto: CreateShipmentDto) {
     return 'This action adds a new shipment';
   }
