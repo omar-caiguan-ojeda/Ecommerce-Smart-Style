@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { CreateUserDto } from './modules/users/dto/create-user.dto';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -25,12 +24,8 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config, 
-    //{ extraModels: [CreateUserDto], }
   );
 
-  // 👇 Agrega los modelos manualmente
-  //document.components = document.components || {};
-  //document.components.schemas = document.components.schemas || {};
   SwaggerModule.setup('api/docs', app, document);
 
   await app.listen(process.env.PORT ?? 3000);

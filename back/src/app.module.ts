@@ -13,11 +13,13 @@ import { ProductsModule } from './modules/products/products.module';
 import { ReviewModule } from './modules/review/review.module';
 import { ShipmentModule } from './modules/shipment/shipment.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
     PrismaModule, 
     AddressModule,
+    AuthModule,
     CartModule, 
     CartItemModule,
     CategoryModule,

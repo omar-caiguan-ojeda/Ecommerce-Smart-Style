@@ -4,7 +4,7 @@ import { IsAdult } from 'src/common/validators/is-adult.validator';
 import { IsPastDate } from 'src/common/validators/is-past-date.validator';
 import { Match } from 'src/common/validators/match.validator';
 
-export class CreateUserDto {
+export class RegisterUserDto {
     
     @ApiProperty({ example: 'John', description: 'First name of the user' })
     @IsNotEmpty({ message: 'Enter your firstname.' })
@@ -58,7 +58,7 @@ export class CreateUserDto {
     @IsDateString({}, { message: 'The date must be in the format YYYY-MM-DD' })
     @IsPastDate({ message: 'The date of birth must be in the past.' })
     @IsAdult({ message: 'You must be over 18 years old to register.' })
-    dateOfBirth?: string;
+    dateOfBirth: string;
 
     // @ApiPropertyOptional({ example: 'CLIENT', description: 'User role (CLIENT | EMPLOYEE | ADMIN)', enum: ['CLIENT', 'EMPLOYEE', 'ADMIN'] })
     // @IsOptional()
