@@ -18,7 +18,7 @@ model User {
   firstName           String
   lastName            String
   email               String   @unique
-  password            String
+  password            String?
   phoneNumber         String
   profilePicture      String?
   dateOfBirth         DateTime
@@ -30,6 +30,8 @@ model User {
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
   lastLogin           DateTime?
+  facebookId          String?   @unique
+  googleId            String?   @unique
 
   orders    Order[]
   addresses Address[]
