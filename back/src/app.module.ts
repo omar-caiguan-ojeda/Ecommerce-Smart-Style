@@ -1,4 +1,5 @@
 // // app.module.ts
+
 // import { Module } from '@nestjs/common';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
@@ -18,10 +19,10 @@
 
 // @Module({
 //   imports: [
-//     PrismaModule, 
+//     PrismaModule,
 //     AddressModule,
 //     AuthModule,
-//     CartModule, 
+//     CartModule,
 //     CartItemModule,
 //     CategoryModule,
 //     OrderModule,
@@ -30,14 +31,12 @@
 //     ReviewModule,
 //     ShipmentModule,
 //     TransactionModule,
-//     UsersModule
+//     UsersModule,
 //   ],
 //   controllers: [AppController],
 //   providers: [AppService],
 // })
 // export class AppModule {}
-
-
 
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -55,9 +54,15 @@ import { ReviewModule } from './modules/review/review.module';
 import { ShipmentModule } from './modules/shipment/shipment.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    JwtModule.register({
+      global: true, // Hace que JwtModule sea global
+      secret: process.env.JWT_SECRET || 'your-secret-key',
+      signOptions: { expiresIn: '1h' },
+    }),
     PrismaModule,
     AddressModule,
     AuthModule,
