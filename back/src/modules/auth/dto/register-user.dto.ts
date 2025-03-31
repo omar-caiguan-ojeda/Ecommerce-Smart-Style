@@ -1,8 +1,6 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsOptional, IsString, IsBoolean, IsDateString, IsNotEmpty, Length, Matches, IsUrl, IsUUID } from 'class-validator';
-import { IsAdult } from 'src/common/validators/is-adult.validator';
-import { IsPastDate } from 'src/common/validators/is-past-date.validator';
-import { Match } from 'src/common/validators/match.validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsString, IsNotEmpty, Length, Matches } from 'class-validator';
+import { Match } from 'src/common/decorators/match.decorator';
 
 export class RegisterUserDto {
     

@@ -8,6 +8,7 @@ import { PassportModule } from '@nestjs/passport';
 import { FacebookStrategy } from './strategy/facebook.strategy';
 import { GoogleStrategy } from './strategy/google.strategy';
 import { RolesGuard } from './guards/roles.guard';
+import { EmailService } from 'src/common/nodemailer/email.service';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { RolesGuard } from './guards/roles.guard';
     FacebookStrategy,
     GoogleStrategy,
     RolesGuard,
+    EmailService,
   ],
   exports: [AuthService],
 })
