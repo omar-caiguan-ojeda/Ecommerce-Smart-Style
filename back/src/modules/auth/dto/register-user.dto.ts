@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString, IsNotEmpty, Length, Matches } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEmail, IsString, IsNotEmpty, Length, Matches, IsOptional } from 'class-validator';
 import { Match } from 'src/common/decorators/match.decorator';
 
 export class RegisterUserDto {
@@ -58,10 +58,10 @@ export class RegisterUserDto {
     // @IsAdult({ message: 'You must be over 18 years old to register.' })
     // dateOfBirth: string;
 
-    // @ApiPropertyOptional({ example: 'CLIENT', description: 'User role (CLIENT | EMPLOYEE | ADMIN)', enum: ['CLIENT', 'EMPLOYEE', 'ADMIN'] })
-    // @IsOptional()
-    // @IsString({ message: 'The role field must be of type string (CLIENT | EMPLOYEE | ADMIN).' })
-    // role?: 'CLIENT' | 'EMPLOYEE' | 'ADMIN';
+    @ApiPropertyOptional({ example: 'CLIENT', description: 'User role (CLIENT | EMPLOYEE | ADMIN)', enum: ['CLIENT', 'EMPLOYEE', 'ADMIN'] })
+    @IsOptional()
+    @IsString({ message: 'The role field must be of type string (CLIENT | EMPLOYEE | ADMIN).' })
+    role?: 'CLIENT' | 'EMPLOYEE' | 'ADMIN';
 
     // @ApiPropertyOptional({ example: true, description: 'Whether the user is active or not' })
     // @IsOptional()

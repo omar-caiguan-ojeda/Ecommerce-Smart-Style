@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { config } from 'dotenv';
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 
 config(); // Carga las variables de entorno desde .env
 
@@ -44,6 +45,8 @@ async function bootstrap() {
       transformOptions: { enableImplicitConversion: true },
     }),
   );
+
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   // Configuración de Swagger
   const swaggerConfig = new DocumentBuilder()

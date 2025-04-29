@@ -8,7 +8,7 @@ import { EmailService } from 'src/common/nodemailer/email.service';
 import { v4 as uuidv4 } from 'uuid';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { randomBytes } from 'crypto';
-import { User } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -37,6 +37,7 @@ export class AuthService {
         lastName: userData.lastName,
         email,
         password: hashedPassword,
+        role: userData.role,
       },
     });
 
